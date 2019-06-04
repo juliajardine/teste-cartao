@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.brq.testecartao.domain.Titular;
+import com.brq.testecartao.dto.TitularDTO;
 import com.brq.testecartao.repository.TitularRepository;
 import com.brq.testecartao.services.exceptions.ObjectNotFoundException;
 
@@ -23,6 +24,14 @@ public class TitularService {
 	public Titular findById(String id) {
 		Optional<Titular> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Titular não encontrado"));
+	}
+	
+	public Titular insert(Titular obj) {
+		return repo.insert(obj);
+	}
+	
+	public Titular fromDTO(TitularDTO objDto) {
+		return new Titular(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 
 }

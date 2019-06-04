@@ -30,8 +30,12 @@ public class TitularService {
 		return repo.insert(obj);
 	}
 	
+	public void delete(String id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
 	public Titular fromDTO(TitularDTO objDto) {
 		return new Titular(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
-
 }

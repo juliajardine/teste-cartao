@@ -1,6 +1,7 @@
 package com.brq.testecartao.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brq.testecartao.domain.Titular;
+import com.brq.testecartao.dto.TitularDTO;
 import com.brq.testecartao.services.TitularService;
 
 @RestController
@@ -19,9 +21,10 @@ public class TitularController {
 	private TitularService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Titular>> findAll() {
+	public ResponseEntity<List<TitularDTO>> findAll() {
 		List<Titular> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<TitularDTO> listDto = list.stream().map(x -> new TitularDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	
